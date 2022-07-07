@@ -2112,10 +2112,7 @@ func (p *parser) lowerClass(stmt js_ast.Stmt, expr js_ast.Expr, result visitClas
 			if p.options.unsupportedJSFeatures.Has(compat.ClassStaticBlocks) {
 				if block := *prop.ClassStaticBlock; len(block.Block.Stmts) > 0 {
 					staticMembers = append(staticMembers, js_ast.Expr{Loc: prop.Loc, Data: &js_ast.ECall{
-						Target: js_ast.Expr{Loc: prop.Loc, Data: &js_ast.EArrow{Body: js_ast.FnBody{
-							Loc:   block.Loc,
-							Block: block.Block,
-						}}},
+						Target: js_ast.Expr{Loc: prop.Loc, Data: &js_ast.EArrow{Body: js_ast.FnBody(block)}},
 					}})
 				}
 				continue
